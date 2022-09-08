@@ -9,15 +9,23 @@ const clientId = `?client_id=${process.env.REACT_APP_UNSPLASH_ACCESS_KEY}`;
 function App() {
 	const [ photos, setPhotos ] = useState([]);
 	const [ loading, setLoading ] = useState(false);
+  const [page, setPage ] = useState(1)
+  const [searchQuery, setSearchQuery ] = useState("");
+
 
 	const fetchUnsplashImage = async () => {
 		setLoading(true);
 		let Uri;
-		Uri = `${mainUriSearch}${clientId}`;
+    const UriPage = `&page=${page}`
+		Uri = `${mainUriSearch}${clientId}${UriPage}`;
 
 		try {
 			const response = await fetch(Uri);
-			setPhotos(await response.json());
+      const data = await response.json()
+      // passing images to photo state at the start
+			setPhotos((prevImage) =>{
+        return [...prevImage,...data]
+      });
 			setLoading(false);
 		} catch (error) {
 			setLoading(false);
@@ -25,7 +33,6 @@ function App() {
 		}
 	};
 
-	const handleChange = (e) => {};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -34,14 +41,19 @@ function App() {
 
 	useEffect(() => {
 		fetchUnsplashImage();
-	}, []);
+	}, [page]);
 
   // UseEffect for scroll event
   useEffect (() =>{
     const scrollEvent = window.addEventListener("scroll",() =>{
-      // checking if we are at the bottom of the page
-     if( (window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
-      console.log("yes sir")
+
+      // checking if we are at the bottom of the page and if loading is false, we fetch image data
+     if( !loading && window.innerHeight + window.scrollY >= document.body.scrollHeight - 15) {
+
+      // increase setPage by 1 when on meeting this condition
+      setPage( (prevPage) =>{
+        return prevPage + 1;
+      })
      }
     });
 
