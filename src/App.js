@@ -44,7 +44,7 @@ function App() {
 	return (
     <main className="block w-full relative bg-slate-300">
 
-      <section className="w-6/12 m-auto p-3 block relative h-full">
+      <section className="w-6/12 m-auto p-3 block relative h-full" style={{marginBottom : "2em"}}>
        <form className="w-full relative">
           <div className="relative block">
            <label htmlFor="search"></label>
