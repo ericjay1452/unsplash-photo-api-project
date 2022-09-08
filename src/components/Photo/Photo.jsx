@@ -1,4 +1,5 @@
 import React from 'react'
+import { FaInstagram, FaTwitter } from 'react-icons/fa';
 
 const Photo = ({photo}) => {
     console.log({photo})
@@ -10,26 +11,43 @@ const {
     likes} = photo;
 
   return (
-    <article>
-       <main>
-        <img src={regular} alt = {name}/>
-       </main>
+    <div>
+    <article className='photo'>
+        <img src={regular} alt = {name} className="rounded"/>
+
           
           {/* user Profile detail*/}
-       <div className=''>
-          
+       <div className='photo-info'>
           <div>
             <h4>{name}</h4>
             <p>likes {likes}</p>
           </div>
 
-          <footer>
+          <div className = "relative">
             <a href={portfolio_url}> 
-             <img src = {medium} alt = {name} />
+             <img src = {medium} alt = {name} className="user-image rounded-full"/>
             </a>
-          </footer>
+            </div>
        </div>
     </article>
+
+    <footer className='block relativ w-full overflow-hidden' style={{fontFamily : "sans-serif"}}>
+        <p className='text-center p-1'>{bio.length > 100 ? bio.slice(0, 100) : bio}</p>
+        <div className='flex justify-between items-center'>
+            <div className='flex items-center'>
+            <FaInstagram className='block' style={{marginBottom : "1.3em",  marginRight : "5px"}}/>
+            <p> {instagram_username}</p>
+            </div>
+            
+            <div className='flex items-center'>
+            <FaTwitter className='block' style={{marginBottom : "1.3em", marginRight : "5px"}}/>
+            <p> {twitter_username}</p>
+            </div>
+            
+        </div>
+       </footer>
+
+    </div>
   )
 }
 

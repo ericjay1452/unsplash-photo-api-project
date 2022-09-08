@@ -63,7 +63,7 @@ function App() {
       </section>
 
       <section style={{width : "95%"}} className= "m-auto">
-          <div>
+          <div className = "gridLayed">
             {photos.map((photo) =>{
               const {id} = photo
               return (
