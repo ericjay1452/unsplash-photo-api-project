@@ -25,7 +25,7 @@ function App() {
     // 1.The search uri is different from the normal uri
     // 2.the initial search does not require search term
     // 3.if we are on search term, dont render the first uri, instead, render uri with search
-    
+
     if(UriSearchquery) {
       Uri = `${searchUri}${clientId}${UriPage}${UriSearchquery}`
     } else {
@@ -36,20 +36,22 @@ function App() {
 			const response = await fetch(Uri);
       const data = await response.json()
       // passing images to photo state at the start
-			setPhotos((prevImage) =>{
-        return [...prevImage,...data]
-      });
+      console.log(data)
+			// setPhotos((prevImage) =>{
+      //   return [...prevImage,...data]
+      // });
 			setLoading(false);
 		} catch (error) {
 			setLoading(false);
 			console.log(error);
+      setSearchQuery("")
 		}
 	};
 
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log('Hello word');
+		fetchUnsplashImage()
 	};
 
 	useEffect(() => {
@@ -101,7 +103,7 @@ function App() {
 						return <Photo key={index} photo={photo} />;
 					})}
 				</div>
-				{loading && <h2>Loading......</h2>}
+				{loading && <div className='loading' />}
 			</section>
 		</main>
 	);
