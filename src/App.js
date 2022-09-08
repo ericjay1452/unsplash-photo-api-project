@@ -38,10 +38,16 @@ function App() {
 
   // UseEffect for scroll event
   useEffect (() =>{
-    const scrollEvent = window.addEventListener("scroll",() =>{})
+    const scrollEvent = window.addEventListener("scroll",() =>{
+      // checking if we are at the bottom of the page
+     if( (window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
+      console.log("yes sir")
+     }
+    });
 
-    return () => window.removeEventListener("scroll", scrollEvent)
-  })
+    return () =>window.removeEventListener("scroll",scrollEvent)
+  },[])
+
 	return (
 		<main className="block w-full relative bg-slate-300">
 			<section className="w-6/12 m-auto p-3 block relative h-full" style={{ marginBottom: '2em' }}>
