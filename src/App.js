@@ -62,7 +62,7 @@ function App() {
        </form>
       </section>
 
-      <section>
+      <section style={{width : "95%"}} className= "m-auto">
           <div>
             {photos.map((photo) =>{
               const {id} = photo
