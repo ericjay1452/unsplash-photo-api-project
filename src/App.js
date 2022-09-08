@@ -17,7 +17,20 @@ function App() {
 		setLoading(true);
 		let Uri;
     const UriPage = `&page=${page}`
+    const UriSearchquery = `&query=${searchQuery}`
 		Uri = `${mainUriSearch}${clientId}${UriPage}`;
+
+
+    // Created this conditional rendering of image because,
+    // 1.The search uri is different from the normal uri
+    // 2.the initial search does not require search term
+    // 3.if we are on search term, dont render the first uri, instead, render uri with search
+    
+    if(UriSearchquery) {
+      Uri = `${searchUri}${clientId}${UriPage}${UriSearchquery}`
+    } else {
+      Uri = `${mainUriSearch}${clientId}${UriPage}`
+    }
 
 		try {
 			const response = await fetch(Uri);
@@ -70,8 +83,8 @@ function App() {
 							name="search"
 							id="search"
 							placeholder="Search ..."
-							value={''}
-							onChange={handleChange}
+							value={searchQuery}
+							onChange={(e)=>setSearchQuery(e.target.value)}
 							className="relative py-2 px-2 rounded-full border-0 text-center w-full hover:border-0 focus:border-0"
 						/>
 
@@ -84,9 +97,8 @@ function App() {
 
 			<section style={{ width: '95%' }} className="m-auto">
 				<div className="gridLayed">
-					{photos.map((photo) => {
-						const { id } = photo;
-						return <Photo key={id} photo={photo} />;
+					{photos.map((photo, index) => {
+						return <Photo key={index} photo={photo} />;
 					})}
 				</div>
 				{loading && <h2>Loading......</h2>}
